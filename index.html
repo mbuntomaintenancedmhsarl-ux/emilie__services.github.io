@@ -1,0 +1,1845 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+
+  <!-- ============================================================
+       EMILIE SERVICES TRAITEUR — Site Web Professionnel
+       ============================================================
+       INSTRUCTIONS POUR MODIFIER CE FICHIER DANS VS CODE :
+
+       1. IMAGES :
+          - Placez vos images dans un dossier "images/" au même niveau que ce fichier
+          - Renommez votre logo        → images/logo.png
+          - Renommez votre photo plat  → images/plat.jpg
+          - Remplacez les src dans le code si nécessaire
+
+       2. NUMÉRO WHATSAPP :
+          - Recherchez "237000000000" et remplacez par votre vrai numéro
+          - Format international SANS le + : ex. 237691234567
+
+       3. COULEURS :
+          - Toutes les couleurs sont dans les variables CSS :root {}
+          - Modifiez --gold, --dark, --cream etc. pour changer le thème
+
+       4. TEXTES :
+          - Chaque section est clairement commentée <!-- SECTION NOM -->
+          - Modifiez les textes directement dans le HTML
+
+       5. POLICES :
+          - Chargées depuis Google Fonts (nécessite internet)
+          - Modifiables dans le <link> en haut et dans body { font-family }
+  ============================================================ -->
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Emilie Services Traiteur – Prestations traiteur haut de gamme à Douala, Cameroun. Mariages, anniversaires, buffets, événements corporate.">
+  <title>Emilie Services Traiteur — Douala</title>
+
+  <!-- ======== POLICES GOOGLE FONTS ======== -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;1,400&display=swap" rel="stylesheet">
+
+  <style>
+
+    /* ============================================================
+       1. VARIABLES CSS — Modifiez ici pour changer tout le thème
+    ============================================================ */
+    :root {
+      --gold:           #C9A84C;   /* Or principal */
+      --gold-light:     #E8C97A;   /* Or clair (titres sur fond sombre) */
+      --gold-dark:      #A07832;   /* Or foncé (dégradés) */
+      --cream:          #FAF6F0;   /* Fond crème des sections claires */
+      --white:          #FFFFFF;
+      --dark:           #1A1208;   /* Fond très sombre (nav, footer) */
+      --brown:          #4A2E0A;   /* Marron chaud (dégradés) */
+      --text-muted:     #6b5e4e;   /* Texte secondaire sur fond clair */
+      --border-gold:    rgba(201, 168, 76, 0.25);
+      --shadow-gold:    0 4px 30px rgba(201, 168, 76, 0.3);
+      --radius-card:    16px;
+      --transition:     all 0.3s ease;
+    }
+
+    /* ============================================================
+       2. RESET & BASE
+    ============================================================ */
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: var(--cream);
+      color: var(--dark);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    /* ============================================================
+       3. COMPOSANTS RÉUTILISABLES
+    ============================================================ */
+
+    /* --- Bouton doré principal --- */
+    .btn-gold {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      color: var(--dark);
+      padding: 14px 36px;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      box-shadow: 0 6px 30px rgba(201, 168, 76, 0.4);
+      transition: var(--transition);
+      border: none;
+      cursor: pointer;
+    }
+    .btn-gold:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(201, 168, 76, 0.6);
+    }
+
+    /* --- Bouton contour --- */
+    .btn-outline {
+      display: inline-block;
+      border: 2px solid var(--gold);
+      color: var(--gold);
+      padding: 14px 36px;
+      border-radius: 40px;
+      font-weight: 500;
+      font-size: 0.85rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      transition: var(--transition);
+    }
+    .btn-outline:hover {
+      background: var(--gold);
+      color: var(--dark);
+    }
+
+    /* --- Étiquette de section --- */
+    .section-label {
+      display: block;
+      font-size: 0.65rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+
+    /* --- Titre de section --- */
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+
+    /* --- Séparateur doré --- */
+    .section-divider {
+      width: 60px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--gold), transparent);
+      margin-bottom: 24px;
+    }
+    .section-divider.center {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* --- Sous-titre de section --- */
+    .section-sub {
+      font-size: 0.95rem;
+      line-height: 1.8;
+      color: var(--text-muted);
+      max-width: 600px;
+    }
+
+    /* --- Espacement des sections --- */
+    section {
+      padding: 100px 40px;
+    }
+
+    /* --- Animation au scroll --- */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* --- Champs de formulaire (base) --- */
+    .form-group {
+      margin-bottom: 18px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 0.75rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: 10px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.3s;
+      resize: vertical;
+    }
+
+
+    /* ============================================================
+       4. NAVIGATION
+    ============================================================ */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      height: 80px;
+      padding: 0 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(26, 18, 8, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-gold);
+      transition: background 0.3s ease;
+    }
+
+    /* Logo dans la nav */
+    .nav-logo {
+      height: 58px;
+      width: 58px;
+      border-radius: 50%;
+      object-fit: contain;
+      filter: drop-shadow(0 0 8px rgba(201, 168, 76, 0.5));
+      /* mix-blend-mode supprime le fond blanc/crème du logo sur fond sombre */
+      mix-blend-mode: lighten;
+    }
+
+    /* Liens de navigation */
+    nav ul {
+      display: flex;
+      gap: 36px;
+      align-items: center;
+    }
+    nav ul li a {
+      color: var(--cream);
+      font-size: 0.78rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 500;
+      position: relative;
+      padding-bottom: 4px;
+      transition: color 0.3s;
+    }
+    nav ul li a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--gold);
+      transition: width 0.3s ease;
+    }
+    nav ul li a:hover {
+      color: var(--gold);
+    }
+    nav ul li a:hover::after {
+      width: 100%;
+    }
+
+    /* Bouton CTA dans la nav */
+    .nav-cta {
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark)) !important;
+      color: var(--dark) !important;
+      padding: 10px 22px !important;
+      border-radius: 30px;
+      font-weight: 600 !important;
+      box-shadow: var(--shadow-gold);
+    }
+    .nav-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 40px rgba(201, 168, 76, 0.5) !important;
+    }
+    .nav-cta::after {
+      display: none !important;
+    }
+
+    /* Hamburger mobile */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .hamburger span {
+      width: 26px;
+      height: 2px;
+      background: var(--gold);
+      border-radius: 2px;
+      transition: var(--transition);
+    }
+
+    /* Menu mobile overlay */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(26, 18, 8, 0.98);
+      z-index: 999;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+    }
+    .mobile-menu.open {
+      display: flex;
+    }
+    .mobile-menu a {
+      color: var(--cream);
+      font-size: 1.2rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+    .mobile-menu a:hover {
+      color: var(--gold);
+    }
+    .mobile-close {
+      position: absolute;
+      top: 28px;
+      right: 32px;
+      color: var(--gold);
+      font-size: 2rem;
+      cursor: pointer;
+      background: none;
+      border: none;
+    }
+
+
+    /* ============================================================
+       5. SECTION HERO (ACCUEIL)
+    ============================================================ */
+    #accueil {
+      min-height: 100vh;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      padding: 0 20px;
+    }
+
+    /* Arrière-plan : photo plat.jpg
+       ⚠️ Remplacez "images/plat.jpg" par votre chemin si différent */
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: url('images/plat.jpg') center / cover no-repeat;
+      filter: brightness(0.35) saturate(0.8);
+      transform: scale(1.05);
+      animation: heroZoom 20s ease-in-out infinite alternate;
+    }
+
+    @keyframes heroZoom {
+      from { transform: scale(1.05); }
+      to   { transform: scale(1.13); }
+    }
+
+    /* Dégradé par-dessus la photo */
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        180deg,
+        rgba(26, 18, 8, 0.72) 0%,
+        rgba(26, 18, 8, 0.28) 45%,
+        rgba(26, 18, 8, 0.72) 100%
+      );
+    }
+
+    /* Contenu centré du hero */
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      color: var(--white);
+      max-width: 760px;
+      animation: fadeUp 1.2s ease forwards;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Logo flottant dans le hero
+       ⚠️ Remplacez "images/logo.png" si nécessaire */
+    .hero-logo {
+      width: 170px;
+      height: 170px;
+      border-radius: 50%;
+      object-fit: contain;
+      border: 2px solid rgba(201, 168, 76, 0.45);
+      padding: 10px;
+      margin: 0 auto 28px;
+      filter: drop-shadow(0 0 22px rgba(201, 168, 76, 0.5));
+      /* Supprime l'arrière-plan crème/blanc du logo */
+      mix-blend-mode: lighten;
+      animation: logoFloat 4s ease-in-out infinite;
+    }
+
+    @keyframes logoFloat {
+      0%, 100% { transform: translateY(0px); }
+      50%       { transform: translateY(-10px); }
+    }
+
+    /* Petit texte au-dessus du titre */
+    .hero-tag {
+      font-size: 0.7rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+
+    /* Titre principal du hero */
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.6rem, 6vw, 5rem);
+      line-height: 1.15;
+      font-weight: 700;
+      text-shadow: 0 2px 20px rgba(0, 0, 0, 0.4);
+      margin-bottom: 22px;
+    }
+    .hero-title span {
+      color: var(--gold-light);
+      font-style: italic;
+    }
+
+    /* Sous-titre hero */
+    .hero-sub {
+      font-size: 1rem;
+      font-weight: 300;
+      color: rgba(255, 255, 255, 0.85);
+      max-width: 540px;
+      margin: 0 auto 38px;
+      line-height: 1.75;
+      letter-spacing: 0.3px;
+    }
+
+    /* Groupe de boutons */
+    .hero-buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* Indicateur de défilement en bas du hero */
+    .scroll-hint {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: var(--gold);
+      font-size: 0.62rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      animation: scrollBounce 2s ease-in-out infinite;
+    }
+    .scroll-hint::after {
+      content: '↓';
+      font-size: 1.1rem;
+    }
+    @keyframes scrollBounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50%       { transform: translateX(-50%) translateY(8px); }
+    }
+
+
+    /* ============================================================
+       6. BARRE DE STATISTIQUES
+    ============================================================ */
+    .stats-bar {
+      background: linear-gradient(135deg, var(--dark) 0%, var(--brown) 100%);
+      padding: 56px 40px;
+      display: flex;
+      justify-content: center;
+      gap: 80px;
+      flex-wrap: wrap;
+      border-top: 1px solid var(--border-gold);
+      border-bottom: 1px solid var(--border-gold);
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-number {
+      display: block;
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8rem;
+      font-weight: 700;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .stat-label {
+      font-size: 0.68rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.55);
+    }
+
+
+    /* ============================================================
+       7. SECTION SERVICES
+    ============================================================ */
+    #services {
+      background: var(--dark);
+      color: var(--white);
+      text-align: center;
+    }
+
+    #services .section-title {
+      color: var(--white);
+    }
+
+    #services .section-sub {
+      color: rgba(255, 255, 255, 0.6);
+      margin: 0 auto 60px;
+    }
+
+    /* Grille des cartes de services */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 26px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    /* Carte de service individuelle */
+    .service-card {
+      position: relative;
+      border: 1px solid var(--border-gold);
+      border-radius: var(--radius-card);
+      padding: 40px 28px;
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(8px);
+      transition: var(--transition);
+      overflow: hidden;
+      text-align: left;
+    }
+
+    /* Ligne dorée animée en haut de chaque carte */
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light), var(--gold));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+
+    .service-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(201, 168, 76, 0.5);
+      background: rgba(201, 168, 76, 0.05);
+    }
+    .service-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .service-icon {
+      font-size: 2.4rem;
+      margin-bottom: 18px;
+    }
+
+    .service-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      color: var(--gold-light);
+      margin-bottom: 12px;
+    }
+
+    .service-card p {
+      font-size: 0.88rem;
+      color: rgba(255, 255, 255, 0.65);
+      line-height: 1.75;
+    }
+
+    .service-price {
+      margin-top: 20px;
+      font-size: 0.72rem;
+      letter-spacing: 2px;
+      color: var(--gold);
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+
+    /* ============================================================
+       8. SECTION GALERIE
+    ============================================================ */
+    #galerie {
+      background: var(--cream);
+    }
+
+    .gallery-intro {
+      display: flex;
+      gap: 60px;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      margin-bottom: 60px;
+    }
+
+    .gallery-intro .text {
+      flex: 1;
+      min-width: 280px;
+    }
+
+    /* Grille galerie : colonnes 3, ligne 1 = featured (2 colonnes) */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .gallery-item {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
+      aspect-ratio: 4 / 3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.3s;
+      background: linear-gradient(135deg, #2c1f0e, #4a3318);
+    }
+
+    .gallery-item:hover {
+      transform: scale(1.03);
+    }
+
+    /* L'élément "featured" prend 2 colonnes */
+    .gallery-item.featured {
+      grid-column: span 2;
+      aspect-ratio: 16 / 9;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Overlay au survol */
+    .gallery-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(201, 168, 76, 0.8), rgba(160, 120, 50, 0.7));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .gallery-item:hover .gallery-overlay {
+      opacity: 1;
+    }
+
+    .gallery-overlay span {
+      color: white;
+      font-size: 2rem;
+    }
+
+    /* Texte placeholder pour les emplacements vides */
+    .gallery-placeholder {
+      font-family: 'Playfair Display', serif;
+      color: rgba(201, 168, 76, 0.55);
+      font-size: 1rem;
+      text-align: center;
+      padding: 20px;
+      font-style: italic;
+      line-height: 1.8;
+    }
+
+    .gallery-footer {
+      text-align: center;
+      margin-top: 50px;
+    }
+
+    .gallery-footer p {
+      color: #8a7060;
+      font-size: 0.85rem;
+      font-style: italic;
+      margin-bottom: 20px;
+    }
+
+
+    /* ============================================================
+       9. SECTION AVIS
+    ============================================================ */
+    #avis {
+      background: linear-gradient(160deg, var(--dark) 0%, #2d1e0a 100%);
+      color: var(--white);
+      text-align: center;
+    }
+
+    #avis .section-title {
+      color: var(--white);
+    }
+
+    #avis .section-sub {
+      color: rgba(255, 255, 255, 0.6);
+      margin: 0 auto 50px;
+    }
+
+    .reviews-container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    /* Grille des avis existants */
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      margin-bottom: 60px;
+    }
+
+    /* Carte avis */
+    .review-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-gold);
+      border-radius: var(--radius-card);
+      padding: 28px;
+      text-align: left;
+      transition: var(--transition);
+    }
+
+    .review-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(201, 168, 76, 0.4);
+    }
+
+    .stars {
+      color: var(--gold);
+      font-size: 1.1rem;
+      margin-bottom: 12px;
+      letter-spacing: 2px;
+    }
+
+    .review-text {
+      font-size: 0.9rem;
+      line-height: 1.75;
+      color: rgba(255, 255, 255, 0.8);
+      margin-bottom: 18px;
+      font-style: italic;
+    }
+
+    .review-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* Avatar circulaire avec initiales */
+    .avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: var(--dark);
+      font-size: 0.95rem;
+      flex-shrink: 0;
+    }
+
+    .author-info strong {
+      display: block;
+      font-size: 0.9rem;
+      color: var(--gold-light);
+    }
+
+    .author-info span {
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    /* Formulaire de dépôt d'avis */
+    .review-form-wrap {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(201, 168, 76, 0.25);
+      border-radius: 20px;
+      padding: 44px;
+      text-align: left;
+      max-width: 620px;
+      margin: 0 auto;
+    }
+
+    .review-form-wrap h3 {
+      font-family: 'Playfair Display', serif;
+      color: var(--gold-light);
+      font-size: 1.6rem;
+      margin-bottom: 28px;
+      text-align: center;
+    }
+
+    /* Champs du formulaire avis (fond sombre) */
+    #avis .form-group label {
+      color: var(--gold);
+    }
+
+    #avis .form-group input,
+    #avis .form-group textarea,
+    #avis .form-group select {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(201, 168, 76, 0.25);
+      color: var(--white);
+    }
+
+    #avis .form-group input:focus,
+    #avis .form-group textarea:focus,
+    #avis .form-group select:focus {
+      border-color: var(--gold);
+    }
+
+    #avis .form-group select option {
+      background: var(--dark);
+      color: var(--white);
+    }
+
+    /* Sélecteur d'étoiles (astuce CSS inverse) */
+    .star-select {
+      display: flex;
+      flex-direction: row-reverse;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+
+    .star-select input[type="radio"] {
+      display: none;
+    }
+
+    .star-select label {
+      cursor: pointer;
+      font-size: 2rem;
+      color: rgba(255, 255, 255, 0.25);
+      transition: color 0.2s;
+      width: auto;
+      padding: 0;
+    }
+
+    /* Allume les étoiles à gauche du hover */
+    .star-select label:hover,
+    .star-select label:hover ~ label,
+    .star-select input[type="radio"]:checked ~ label {
+      color: var(--gold);
+    }
+
+
+    /* ============================================================
+       10. SECTION COMMANDER
+    ============================================================ */
+    #commander {
+      background: var(--cream);
+      text-align: center;
+    }
+
+    #commander .section-title {
+      color: var(--dark);
+    }
+
+    #commander .section-sub {
+      margin: 0 auto 50px;
+    }
+
+    /* Conteneur principal du formulaire commander */
+    .order-container {
+      max-width: 820px;
+      margin: 0 auto;
+      background: var(--white);
+      border-radius: 24px;
+      box-shadow: 0 20px 80px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+
+    /* En-tête sombre du formulaire */
+    .order-header {
+      background: linear-gradient(135deg, var(--dark), var(--brown));
+      padding: 42px 44px;
+    }
+
+    .order-header h3 {
+      font-family: 'Playfair Display', serif;
+      color: var(--gold-light);
+      font-size: 1.8rem;
+      margin-bottom: 8px;
+    }
+
+    .order-header p {
+      color: rgba(255, 255, 255, 0.65);
+      font-size: 0.9rem;
+    }
+
+    /* Corps du formulaire */
+    .order-body {
+      padding: 44px;
+    }
+
+    /* Grille 2 colonnes pour les champs */
+    .order-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .order-grid .full {
+      grid-column: span 2;
+    }
+
+    /* Champs du formulaire commander (fond clair) */
+    #commander .form-group label {
+      color: var(--gold-dark);
+    }
+
+    #commander .form-group input,
+    #commander .form-group textarea,
+    #commander .form-group select {
+      background: #faf6f0;
+      border: 1px solid #e0c88a;
+      color: var(--dark);
+    }
+
+    #commander .form-group input:focus,
+    #commander .form-group textarea:focus,
+    #commander .form-group select:focus {
+      border-color: var(--gold);
+    }
+
+    .order-note {
+      text-align: center;
+      margin-top: 14px;
+      font-size: 0.78rem;
+      color: #9a8575;
+    }
+
+
+    /* ============================================================
+       11. BOUTON WHATSAPP FLOTTANT
+    ============================================================ */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      z-index: 9999;
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #25D366, #128C7E);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 30px rgba(37, 211, 102, 0.5);
+      transition: transform 0.3s, box-shadow 0.3s;
+      animation: waPulse 2.5s ease-in-out infinite;
+    }
+
+    @keyframes waPulse {
+      0%, 100% { box-shadow: 0 6px 30px rgba(37, 211, 102, 0.5); }
+      50%       { box-shadow: 0 6px 50px rgba(37, 211, 102, 0.9), 0 0 0 14px rgba(37, 211, 102, 0.1); }
+    }
+
+    .whatsapp-float:hover {
+      transform: scale(1.12);
+    }
+
+    .whatsapp-float svg {
+      width: 34px;
+      height: 34px;
+      fill: white;
+    }
+
+    /* Bulle de texte au survol */
+    .wa-tooltip {
+      position: absolute;
+      right: 76px;
+      background: var(--dark);
+      color: var(--white);
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 0.78rem;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+      border: 1px solid var(--border-gold);
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .whatsapp-float:hover .wa-tooltip {
+      opacity: 1;
+    }
+
+
+    /* ============================================================
+       12. FOOTER
+    ============================================================ */
+    footer {
+      background: var(--dark);
+      padding: 64px 40px 32px;
+      text-align: center;
+      border-top: 1px solid var(--border-gold);
+    }
+
+    .footer-logo {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: contain;
+      margin: 0 auto 20px;
+      filter: drop-shadow(0 0 10px rgba(201, 168, 76, 0.3));
+      border: 1px solid rgba(201, 168, 76, 0.3);
+      padding: 6px;
+      /* Supprime fond blanc/crème sur fond sombre */
+      mix-blend-mode: lighten;
+    }
+
+    .footer-brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      color: var(--gold-light);
+      margin-bottom: 8px;
+    }
+
+    .footer-info {
+      color: rgba(255, 255, 255, 0.55);
+      font-size: 0.85rem;
+      line-height: 1.8;
+    }
+
+    .footer-info .gold-text {
+      color: var(--gold);
+    }
+
+    .footer-divider {
+      width: 60px;
+      height: 1px;
+      background: var(--gold);
+      margin: 20px auto;
+      opacity: 0.35;
+    }
+
+    .footer-copy {
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.35);
+      margin-top: 6px;
+      line-height: 1.8;
+    }
+
+
+    /* ============================================================
+       13. RESPONSIVE MOBILE (max 768px)
+    ============================================================ */
+    @media (max-width: 768px) {
+
+      /* Navigation */
+      nav {
+        padding: 0 20px;
+      }
+      nav ul {
+        display: none; /* Caché sur mobile → voir hamburger */
+      }
+      .hamburger {
+        display: flex;
+      }
+
+      /* Sections */
+      section {
+        padding: 70px 20px;
+      }
+
+      /* Stats */
+      .stats-bar {
+        gap: 36px;
+        padding: 40px 20px;
+      }
+
+      /* Galerie */
+      .NOS REALISATIONS-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      .NOS REALISATIONS-item.featured {
+        grid-column: span 2;
+      }
+
+      /* Commander */
+      .order-grid {
+        grid-template-columns: 1fr;
+      }
+      .order-grid .full {
+        grid-column: span 1;
+      }
+      .order-body {
+        padding: 28px 20px;
+      }
+      .order-header {
+        padding: 28px 20px;
+      }
+
+      /* Avis form */
+      .review-form-wrap {
+        padding: 28px 20px;
+      }
+
+      /* Hero */
+      .hero-logo {
+        width: 130px;
+        height: 130px;
+      }
+
+      /* WhatsApp */
+      .whatsapp-float {
+        bottom: 20px;
+        right: 20px;
+        width: 56px;
+        height: 56px;
+      }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+       MENU MOBILE (overlay plein écran)
+  ============================================================ -->
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="mobile-close" onclick="closeMobileMenu()">✕</button>
+    <a href="#accueil"  onclick="closeMobileMenu()">Accueil</a>
+    <a href="#services" onclick="closeMobileMenu()">Services</a>
+    <a href="#NOS REALISATIONS"  onclick="closeMobileMenu()">NOS REALISATIONS</a>
+    <a href="#avis"     onclick="closeMobileMenu()">Avis</a>
+    <a href="#commander" onclick="closeMobileMenu()" class="btn-gold" style="padding:14px 32px;">Commander</a>
+  </div>
+
+
+  <!-- ============================================================
+       NAVIGATION
+  ============================================================ -->
+  <nav id="navbar">
+
+    <!-- ⚠️ Remplacez "images/logo.png" par votre chemin de logo -->
+    <img
+      src="images/logo.png"
+      alt="Emilie Services Traiteur Logo"
+      class="nav-logo"
+    >
+
+    <!-- Liens desktop -->
+    <ul>
+      <li><a href="#accueil">Accueil</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#NOS REALISATIONS">NOS REALISATIONS</a></li>
+      <li><a href="#avis">Avis</a></li>
+      <li><a href="#commander" class="nav-cta">Commander</a></li>
+    </ul>
+
+    <!-- Hamburger mobile -->
+    <div class="hamburger" onclick="openMobileMenu()" aria-label="Menu" role="button">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+  </nav>
+
+
+  <!-- ============================================================
+       SECTION ACCUEIL / HERO
+       → Arrière-plan : images/plat.jpg
+       → Logo flottant : images/logo.png
+  ============================================================ -->
+  <section id="accueil">
+
+    <!-- Arrière-plan photo (modifiez l'URL dans le CSS → .hero-bg) -->
+    <div class="hero-bg"></div>
+
+    <!-- Dégradé sombre par-dessus -->
+    <div class="hero-overlay"></div>
+
+    <!-- Contenu centré -->
+    <div class="hero-content">
+
+      <!-- Logo centré — mix-blend-mode:lighten supprime le fond blanc -->
+      <img
+        src="images/logo.png"
+        alt="Emilie Services Traiteur"
+        class="hero-logo"
+      >
+
+      <!-- Étiquette dorée -->
+      <p class="hero-tag">✦ Douala, Cameroun ✦</p>
+
+      <!-- Titre principal — modifiez le texte ici -->
+      <h1 class="hero-title">
+        L'Art de Recevoir<br>
+        <span>avec Élégance</span>
+      </h1>
+
+      <!-- Sous-titre — modifiez le texte ici -->
+      <p class="hero-sub">
+        Des saveurs raffinées pour vos mariages, anniversaires, baptêmes et événements d'entreprise.
+        Chaque plat, une promesse d'excellence.
+      </p>
+
+      <!-- Boutons d'action -->
+      <div class="hero-buttons">
+        <a href="#commander" class="btn-gold">Commander maintenant</a>
+        <a href="#services"  class="btn-outline">Découvrir nos services</a>
+      </div>
+
+    </div>
+
+    <!-- Flèche de défilement -->
+    <div class="scroll-hint">Défiler</div>
+
+  </section>
+
+
+  <!-- ============================================================
+       BARRE DE STATISTIQUES
+       → Modifiez les chiffres dans .stat-number
+  ============================================================ -->
+  <div class="stats-bar">
+
+    <div class="stat-item reveal">
+      <span class="stat-number">500+</span>
+      <div class="stat-label">Événements réalisés</div>
+    </div>
+
+    <div class="stat-item reveal">
+      <span class="stat-number">98%</span>
+      <div class="stat-label">Clients satisfaits</div>
+    </div>
+
+    <div class="stat-item reveal">
+      <span class="stat-number">5 ★</span>
+      <div class="stat-label">Note moyenne</div>
+    </div>
+
+    <div class="stat-item reveal">
+      <span class="stat-number">10+</span>
+      <div class="stat-label">Années d'expérience</div>
+    </div>
+
+  </div>
+
+
+  <!-- ============================================================
+       SECTION SERVICES
+       → Ajoutez / supprimez des .service-card selon vos besoins
+  ============================================================ -->
+  <section id="services">
+
+    <span class="section-label">Ce que nous faisons</span>
+    <h2 class="section-title">Nos Prestations</h2>
+    <div class="section-divider center"></div>
+    <p class="section-sub">
+      Du buffet élaboré au repas assis en passant par la conception de menu sur mesure,
+      nous créons des expériences gastronomiques mémorables.
+    </p>
+
+    <div class="services-grid reveal">
+
+      <!-- Carte 1 — Mariages -->
+      <div class="service-card">
+        <div class="service-icon">💍</div>
+        <h3>Mariages & Cérémonies</h3>
+        <p>
+          Un repas de mariage digne de votre amour. Menu personnalisé,
+          service impeccable, présentation somptueuse.
+        </p>
+        <div class="service-price">Sur devis personnalisé</div>
+      </div>
+
+      <!-- Carte 2 — Buffets -->
+      <div class="service-card">
+        <div class="service-icon">🥂</div>
+        <h3>Buffets & Cocktails</h3>
+        <p>
+          Des buffets généreux et raffinés pour vos fêtes, lancements de produits,
+          anniversaires et cocktails d'affaires.
+        </p>
+        <div class="service-price">À partir de 20 000 FCFA / pers.</div>
+      </div>
+
+      <!-- Carte 3 — Corporate -->
+      <div class="service-card">
+        <div class="service-icon">🏢</div>
+        <h3>Événements Corporate</h3>
+        <p>
+          Repas d'affaires, séminaires, team buildings. Nous gérons tout pour
+          que vous restiez concentré sur l'essentiel.
+        </p>
+        <div class="service-price">Devis sous 24h</div>
+      </div>
+
+      <!-- Carte 4 — Anniversaires -->
+      <div class="service-card">
+        <div class="service-icon">🎂</div>
+        <h3>Anniversaires & Fêtes</h3>
+        <p>
+          Baptêmes, communions, anniversaires d'enfants ou d'adultes — chaque
+          célébration mérite une table extraordinaire.
+        </p>
+        <div class="service-price">À partir de 15 000 FCFA / pers.</div>
+      </div>
+
+      <!-- Carte 5 — Livraison -->
+      <div class="service-card">
+        <div class="service-icon">🍱</div>
+        <h3>Livraison de Repas</h3>
+        <p>
+          Commandes groupées pour entreprises ou particuliers. Des repas chauds,
+          préparés avec soin, livrés à temps.
+        </p>
+        <div class="service-price">Commandes dès 10 personnes</div>
+      </div>
+
+      <!-- Carte 6 — Chef à domicile -->
+      <div class="service-card">
+        <div class="service-icon">👨‍🍳</div>
+        <h3>Chef à Domicile</h3>
+        <p>
+          Un chef qualifié se déplace chez vous pour cuisiner en direct lors de
+          vos dîners privés ou soirées intimes.
+        </p>
+        <div class="service-price">Tarif selon prestation</div>
+      </div>
+
+    </div><!-- /services-grid -->
+
+  </section>
+
+
+  <!-- ============================================================
+       SECTION GALERIE
+       → Remplacez les .gallery-placeholder par de vraies <img>
+       → Pour ajouter une image : <img src="images/votre-photo.jpg" alt="Description">
+  ============================================================ -->
+  <section id="NOS REALISATIONS">
+
+    <div class="NOS REALISATIONS-intro">
+      <div class="text">
+        <span class="section-label">GALLERIE</span>
+        <h2 class="section-title">NOS REALISATION</h2>
+        <div class="section-divider"></div>
+        <p class="section-sub">
+          Chaque événement est une œuvre unique. Découvrez quelques moments
+          capturés lors de nos prestations. La beauté est dans les détails.
+        </p>
+      </div>
+    </div>
+
+    <div class="gallery-grid reveal">
+
+      <!-- Image principale (2 colonnes) — plat.jpg -->
+      <div class="gallery-item featured">
+        <img src="images/plat.jpg" alt="Buffet Emilie Services Traiteur">
+        <div class="gallery-overlay"><span>👁</span></div>
+      </div>
+<div class="gallery-container">
+  
+  <div class="gallery-item">
+    <img src="images/photo2.jpg" alt="Mariage Élégant">
+    <img src="images/photo6.jpg" alt="Mariage Élégant">
+    <div class="overlay"><span></span></div>
+  </div>
+
+  <div class="gallery-item">
+    <img src="images/photo3.jpg" alt="Buffet Corporate">
+    <img src="images/photo7.jpg" alt="Buffet Corporate">
+    <div class="overlay"><span></span></div>
+  </div>
+
+  <div class="gallery-item">
+    <img src="images/photo4.jpg" alt="Anniversaire Chic">
+    <img src="images/photo9.jpg" alt="Anniversaire Chic">
+    <div class="overlay"><span></span></div>
+  </div>
+
+  <div class="gallery-item">
+    <img src="images/photo5.jpg" alt="Cocktail Dînatoire">
+    <img src="images/photo8.jpg" alt="Cocktail Dînatoire">
+    <div class="overlay"><span></span></div>
+  </div>
+
+</div>
+
+
+    <div class="gallery-footer">
+      <p>✦ Vos photos de réalisations seront affichées ici ✦</p>
+      <!-- ⚠️ Remplacez 237000000000 par votre numéro WhatsApp -->
+      <a
+        href="https://wa.me/237657285827?text=Bonjour%20Emilie%2C%20je%20souhaite%20voir%20vos%20r%C3%A9alisations"
+        class="btn-gold"
+        target="_blank"
+        rel="noopener"
+      >
+        Voir plus sur WhatsApp
+      </a>
+    </div>
+
+  </section>
+
+
+  <!-- ============================================================
+       SECTION AVIS
+       → Les 3 review-card sont des exemples, modifiez-les librement
+       → Le formulaire envoie l'avis par WhatsApp
+  ============================================================ -->
+  <section id="avis">
+
+    <span class="section-label">Ce que disent nos clients</span>
+    <h2 class="section-title">Avis & Témoignages</h2>
+    <div class="section-divider center"></div>
+    <p class="section-sub">
+      La confiance de nos clients est notre plus belle récompense.
+      Voici ce qu'ils disent de notre service.
+    </p>
+
+    <div class="reviews-container">
+
+      <!-- Grille des avis existants -->
+      <div class="reviews-grid reveal">
+
+        <!-- Avis 1 -->
+        <div class="review-card">
+          <div class="stars">★★★★★</div>
+          <p class="review-text">
+            "Emilie a transformé notre mariage en un vrai festin. Les plats étaient délicieux,
+            la présentation magnifique et le service vraiment professionnel. Merci infiniment !"
+          </p>
+          <div class="review-author">
+            <div class="avatar">MK</div>
+            <div class="author-info">
+              <strong>Marie-Claire K.</strong>
+              <span>Mariage — Décembre 2024</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Avis 2 -->
+        <div class="review-card">
+          <div class="stars">★★★★★</div>
+          <p class="review-text">
+            "Pour notre séminaire d'entreprise, Emilie Services a assuré un buffet de qualité
+            exceptionnelle. Ponctuels, propres, et les saveurs... incomparables !"
+          </p>
+          <div class="review-author">
+            <div class="avatar">JP</div>
+            <div class="author-info">
+              <strong>Jean-Pierre N.</strong>
+              <span>Événement Corporate — Janvier 2025</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Avis 3 -->
+        <div class="review-card">
+          <div class="stars">★★★★★</div>
+          <p class="review-text">
+            "L'anniversaire de ma fille était parfait. Tout le monde a apprécié la nourriture.
+            Je recommande vivement Emilie Services Traiteur les yeux fermés !"
+          </p>
+          <div class="review-author">
+            <div class="avatar">SC</div>
+            <div class="author-info">
+              <strong>Sophie C.</strong>
+              <span>Anniversaire — Mars 2025</span>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /reviews-grid -->
+
+
+      <!-- Formulaire de dépôt d'avis -->
+      <div class="review-form-wrap reveal">
+        <h3>✍️ Partagez votre expérience</h3>
+
+        <div class="form-group">
+          <label for="rv-name">Votre nom</label>
+          <input type="text" id="rv-name" placeholder="Ex : Marie Dupont">
+        </div>
+
+        <div class="form-group">
+          <label for="rv-event">Type d'événement</label>
+          <select id="rv-event">
+            <option value="">-- Sélectionnez --</option>
+            <option>Mariage</option>
+            <option>Anniversaire</option>
+            <option>Événement corporate</option>
+            <option>Baptême / Communion</option>
+            <option>Cocktail</option>
+            <option>Autre</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Note (cliquez sur les étoiles)</label>
+          <!-- Astuce CSS : les étoiles s'allument de droite à gauche grâce à flex-direction:row-reverse -->
+          <div class="star-select">
+            <input type="radio" name="stars" id="s5" value="5"><label for="s5">★</label>
+            <input type="radio" name="stars" id="s4" value="4"><label for="s4">★</label>
+            <input type="radio" name="stars" id="s3" value="3"><label for="s3">★</label>
+            <input type="radio" name="stars" id="s2" value="2"><label for="s2">★</label>
+            <input type="radio" name="stars" id="s1" value="1"><label for="s1">★</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="rv-text">Votre avis</label>
+          <textarea id="rv-text" rows="4" placeholder="Décrivez votre expérience avec Emilie Services Traiteur..."></textarea>
+        </div>
+
+        <!-- Le bouton appelle submitReview() dans le JS -->
+        <button class="btn-gold" onclick="submitReview()" style="width:100%; padding:14px; font-size:0.9rem;">
+          Envoyer mon avis via WhatsApp ✦
+        </button>
+
+      </div><!-- /review-form-wrap -->
+
+    </div><!-- /reviews-container -->
+
+  </section>
+
+
+  <!-- ============================================================
+       SECTION COMMANDER
+       → Le formulaire envoie la commande par WhatsApp
+  ============================================================ -->
+  <section id="commander">
+
+    <span class="section-label">Passez votre commande</span>
+    <h2 class="section-title">Commander Maintenant</h2>
+    <div class="section-divider center"></div>
+    <p class="section-sub">
+      Remplissez ce formulaire et nous vous recontacterons dans les plus brefs délais
+      avec un devis personnalisé.
+    </p>
+
+    <div class="order-container reveal">
+
+      <!-- En-tête du formulaire -->
+      <div class="order-header">
+        <h3>🍽️ Votre Demande de Prestation</h3>
+        <p>Tous les événements méritent une cuisine d'exception</p>
+      </div>
+
+      <!-- Corps du formulaire -->
+      <div class="order-body">
+        <div class="order-grid">
+
+          <div class="form-group">
+            <label for="ord-name">Prénom &amp; Nom</label>
+            <input type="text" id="ord-name" placeholder="Votre nom complet">
+          </div>
+
+          <div class="form-group">
+            <label for="ord-phone">Téléphone / WhatsApp</label>
+            <input type="tel" id="ord-phone" placeholder="+237 6XXXXXXXX">
+          </div>
+
+          <div class="form-group">
+            <label for="ord-event">Type d'événement</label>
+            <select id="ord-event">
+              <option value="">-- Choisissez --</option>
+              <option>Mariage</option>
+              <option>Anniversaire</option>
+              <option>Baptême / Communion</option>
+              <option>Séminaire / Corporate</option>
+              <option>Cocktail / Réception</option>
+              <option>Chef à domicile</option>
+              <option>Livraison de repas</option>
+              <option>Autre</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="ord-date">Date de l'événement</label>
+            <input type="date" id="ord-date">
+          </div>
+
+          <div class="form-group">
+            <label for="ord-guests">Nombre de personnes</label>
+            <input type="number" id="ord-guests" placeholder="Ex : 100" min="1">
+          </div>
+
+          <div class="form-group">
+            <label for="ord-budget">Budget estimé</label>
+            <select id="ord-budget">
+              <option value="">-- Budget --</option>
+              <option>Moins de 100 000 FCFA</option>
+              <option>100 000 – 300 000 FCFA</option>
+              <option>300 000 – 700 000 FCFA</option>
+              <option>Plus de 700 000 FCFA</option>
+            </select>
+          </div>
+
+          <div class="form-group full">
+            <label for="ord-details">Détails &amp; Demandes spéciales</label>
+            <textarea id="ord-details" rows="5" placeholder="Décrivez votre événement, vos goûts, allergies, demandes particulières..."></textarea>
+          </div>
+
+        </div><!-- /order-grid -->
+
+        <!-- Bouton envoi WhatsApp -->
+        <button
+          class="btn-gold"
+          onclick="sendOrder()"
+          style="width:100%; padding:16px; font-size:0.95rem; margin-top:14px;"
+        >
+          📲 Envoyer ma commande via WhatsApp
+        </button>
+
+        <p class="order-note">
+          Réponse garantie sous 2h &nbsp;·&nbsp; Devis gratuit et sans engagement
+        </p>
+
+      </div><!-- /order-body -->
+
+    </div><!-- /order-container -->
+
+  </section>
+
+
+  <!-- ============================================================
+       FOOTER
+       → Modifiez le numéro, l'adresse, l'email
+  ============================================================ -->
+  <footer>
+
+    <img
+      src="images/logo.png"
+      alt="Emilie Services Traiteur"
+      class="footer-logo"
+    >
+
+    <p class="footer-brand">Emilie Services Traiteur</p>
+
+    <div class="footer-info">
+      <p>Douala, Cameroun</p>
+      <!-- ⚠️ Remplacez le numéro ci-dessous -->
+      <p>📞 <span class="gold-text">+237 657285827</span></p>
+      <p>✉️ <span class="gold-text">emilietraiteur@gmail.com</span></p>
+    </div>
+
+    <div class="footer-divider"></div>
+
+    <p class="footer-copy">© 2025 Emilie Services Traiteur · Tous droits réservés</p>
+    <p class="footer-copy">Fait avec ❤️ pour sublimer chaque moment de votre vie</p>
+
+  </footer>
+
+
+  <!-- ============================================================
+       BOUTON WHATSAPP FLOTTANT
+       ⚠️ Remplacez 237000000000 par votre vrai numéro WhatsApp
+       Format : code pays + numéro, sans espaces ni +
+       Ex : Cameroun 237 + 691234567 → 237691234567
+  ============================================================ -->
+  <a
+    href="https://wa.me/237657285827?text=Bonjour%20Emilie%20Services%20Traiteur%20!%20Je%20souhaite%20obtenir%20plus%20d%27informations."
+    class="whatsapp-float"
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="Contactez-nous sur WhatsApp"
+  >
+    <div class="wa-tooltip">Contactez-nous sur WhatsApp</div>
+    <!-- Icône SVG WhatsApp officielle -->
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+  </a>
+
+
+  <!-- ============================================================
+       JAVASCRIPT
+  ============================================================ -->
+  <script>
+
+    /* ----------------------------------------------------------
+       1. SCROLL REVEAL — anime les éléments .reveal à l'entrée
+    ---------------------------------------------------------- */
+    const revealObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    document.querySelectorAll('.reveal').forEach((el) => {
+      revealObserver.observe(el);
+    });
+
+
+    /* ----------------------------------------------------------
+       2. NAV SCROLL — rend la nav plus opaque après 80px
+    ---------------------------------------------------------- */
+    window.addEventListener('scroll', () => {
+      const nav = document.getElementById('navbar');
+      if (window.scrollY > 80) {
+        nav.style.background = 'rgba(26, 18, 8, 0.98)';
+      } else {
+        nav.style.background = 'rgba(26, 18, 8, 0.92)';
+      }
+    });
+
+
+    /* ----------------------------------------------------------
+       3. MENU MOBILE
+    ---------------------------------------------------------- */
+    function openMobileMenu() {
+      document.getElementById('mobileMenu').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeMobileMenu() {
+      document.getElementById('mobileMenu').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+
+    /* ----------------------------------------------------------
+       4. ENVOYER UN AVIS VIA WHATSAPP
+       ⚠️ Remplacez 237000000000 par votre numéro
+    ---------------------------------------------------------- */
+    function submitReview() {
+      const name    = document.getElementById('rv-name').value.trim()  || 'Anonyme';
+      const event   = document.getElementById('rv-event').value         || 'Non précisé';
+      const text    = document.getElementById('rv-text').value.trim()   || 'Avis non renseigné';
+      const checked = document.querySelector('input[name="stars"]:checked');
+      const rating  = checked ? '★'.repeat(parseInt(checked.value)) : '★★★★★';
+
+      if (!text || text === 'Avis non renseigné') {
+        alert('Veuillez écrire votre avis avant d\'envoyer.');
+        return;
+      }
+
+      const message = encodeURIComponent(
+        '🌟 NOUVEL AVIS CLIENT 🌟\n\n' +
+        'Nom : ' + name + '\n' +
+        'Événement : ' + event + '\n' +
+        'Note : ' + rating + '\n\n' +
+        'Avis :\n"' + text + '"\n\n' +
+        '— Envoyé depuis le site Emilie Services Traiteur'
+      );
+
+      // ⚠️ Remplacez 237000000000 ci-dessous
+      window.open('https://wa.me/237657285827?text=' + message, '_blank');
+    }
+
+
+    /* ----------------------------------------------------------
+       5. ENVOYER UNE COMMANDE VIA WHATSAPP
+       ⚠️ Remplacez 237000000000 par votre numéro
+    ---------------------------------------------------------- */
+    function sendOrder() {
+      const name    = document.getElementById('ord-name').value.trim()    || 'Non renseigné';
+      const phone   = document.getElementById('ord-phone').value.trim()   || 'Non renseigné';
+      const event   = document.getElementById('ord-event').value           || 'Non précisé';
+      const date    = document.getElementById('ord-date').value             || 'À définir';
+      const guests  = document.getElementById('ord-guests').value           || 'Non précisé';
+      const budget  = document.getElementById('ord-budget').value           || 'Non précisé';
+      const details = document.getElementById('ord-details').value.trim()  || 'Aucun détail';
+
+      if (name === 'Non renseigné' || phone === 'Non renseigné') {
+        alert('Veuillez au minimum renseigner votre nom et votre numéro de téléphone.');
+        return;
+      }
+
+      const message = encodeURIComponent(
+        '🍽️ NOUVELLE COMMANDE 🍽️\n\n' +
+        '👤 Nom         : ' + name    + '\n' +
+        '📞 Téléphone   : ' + phone   + '\n' +
+        '🎉 Événement   : ' + event   + '\n' +
+        '📅 Date        : ' + date    + '\n' +
+        '👥 Personnes   : ' + guests  + '\n' +
+        '💰 Budget      : ' + budget  + '\n\n' +
+        '📝 Détails :\n' + details    + '\n\n' +
+        '— Envoyé depuis emilietraiteur.com'
+      );
+
+      // ⚠️ Remplacez 237000000000 ci-dessous
+      window.open('https://wa.me/237657285827?text=' + message, '_blank');
+    }
+
+  </script>
+
+</body>
+</html>
